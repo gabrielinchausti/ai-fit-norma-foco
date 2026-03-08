@@ -19,7 +19,7 @@ export async function POST(req) {
     const fileName = `chats/${chat.chat_id}.json`;
 
     const blob = await put(fileName, JSON.stringify(chat), {
-      access: "public",
+      access: "private",
       contentType: "application/json"
     });
 
