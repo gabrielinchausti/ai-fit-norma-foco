@@ -22,7 +22,7 @@ export default function ChatPage() {
         {
           role: "assistant",
           content:
-            "Oi, tudo bem? Eu sou o João. Tô querendo entender melhor quais os argumentos para comprar os fones de ouvido Neurasound."
+            "Hi, how are you? I'm John. I'm trying to better understand the arguments people use when deciding whether to buy DELIGHT, a yogurt product."
         }
       ]);
     }
@@ -52,7 +52,7 @@ export default function ChatPage() {
       if (!resp.ok) {
         const updatedErr = [
           ...next,
-          { role: "assistant", content: "Erro ao gerar resposta. Tente novamente." }
+          { role: "assistant", content: "Error generating response. Please try again." }
         ];
         setMessages(updatedErr);
         setLoading(false);
@@ -70,7 +70,7 @@ export default function ChatPage() {
     } catch {
       const updatedErr = [
         ...next,
-        { role: "assistant", content: "Erro de rede. Tente novamente." }
+        { role: "assistant", content: "Network error. Please try again." }
       ];
       setMessages(updatedErr);
       setLoading(false);
@@ -113,7 +113,7 @@ export default function ChatPage() {
 
   return (
     <main style={{ maxWidth: 800, margin: "40px auto", fontFamily: "sans-serif" }}>
-      <h2>Conversa</h2>
+      <h2>Conversation</h2>
 
       {(!pid || !agent) && (
         <div
@@ -126,7 +126,7 @@ export default function ChatPage() {
             fontSize: 14
           }}
         >
-          Atenção: faltam parâmetros na URL. pid="{pid || "(vazio)"}", agent="{agent || "(vazio)"}"
+          Warning: missing URL parameters. pid="{pid || "(vazio)"}", agent="{agent || "(vazio)"}"
         </div>
       )}
 
@@ -149,7 +149,7 @@ export default function ChatPage() {
               borderRadius: 8
             }}
           >
-            <b>{m.role === "user" ? "Você" : "João"}:</b> {m.content}
+            <b>{m.role === "user" ? "You" : "John"}:</b> {m.content}
           </div>
         ))}
       </div>
@@ -160,7 +160,7 @@ export default function ChatPage() {
             value={text}
             onChange={e => setText(e.target.value)}
             rows={3}
-            placeholder="Escreva sua resposta aqui..."
+            placeholder="Write your response here..."
             onKeyDown={e => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
@@ -192,11 +192,11 @@ export default function ChatPage() {
               opacity: loading ? 0.7 : 1
             }}
           >
-            {loading ? "Enviando..." : "Enviar"}
+            {loading ? "Sending..." : "Send"}
           </button>
         </div>
       ) : (
-        <p style={{ marginTop: 20 }}>Conversa concluída. Redirecionando…</p>
+        <p style={{ marginTop: 20 }}>Conversation completed. Redirecting</p>
       )}
     </main>
   );
