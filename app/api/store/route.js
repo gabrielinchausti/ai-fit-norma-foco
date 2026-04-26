@@ -4,7 +4,7 @@ export async function POST(req) {
   try {
     const b = await req.json();
 
-    if (!b.pid || !b.agent || !Array.isArray(b.messages)) {
+    if (!b.pid || !b.agent || !b.stimulus || !Array.isArray(b.messages)) {
       return Response.json({ error: "invalid payload" }, { status: 400 });
     }
 
@@ -12,6 +12,7 @@ export async function POST(req) {
       chat_id: crypto.randomUUID(),
       pid: b.pid,
       agent: b.agent,
+      stimulus: b.stimulus,
       messages: b.messages,
       created_at: new Date().toISOString()
     };

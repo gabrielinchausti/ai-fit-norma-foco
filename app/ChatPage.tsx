@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import stimulusReminders from "@/prompts/stimulus_reminders.json";
 
 const TURN_LIMIT = 5;
 const POST_URL = "https://lse.eu.qualtrics.com/jfe/form/SV_5yZCFOZ9h8l3fL0";
@@ -11,6 +12,10 @@ export default function ChatPage() {
 
   const pid = params.get("pid") ?? "";
   const agent = params.get("agent") ?? "";
+  const stimulus = params.get("stimulus") ?? "";
+
+  const reminder =
+    stimulusReminders[stimulus as keyof typeof stimulusReminders];
 
   const [messages, setMessages] = useState<any[]>([]);
   const [text, setText] = useState("");
@@ -44,7 +49,7 @@ export default function ChatPage() {
       const resp = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pid, agent, messages: next })
+        body: JSON.stringify({ pid, agent, stimulus, messages: next })
       });
 
       const data = await resp.json();
@@ -89,6 +94,7 @@ export default function ChatPage() {
         body: JSON.stringify({
           pid,
           agent,
+          stimulus,
           messages: finalMessages
         })
       });
@@ -106,6 +112,8 @@ export default function ChatPage() {
       encodeURIComponent(pid) +
       "&agent=" +
       encodeURIComponent(agent) +
+      "&stimulus=" +
+      encodeURIComponent(stimulus) +
       (chatId ? "&chat_id=" + encodeURIComponent(chatId) : "");
 
     window.location.href = target;
@@ -115,7 +123,7 @@ export default function ChatPage() {
     <main style={{ maxWidth: 800, margin: "40px auto", fontFamily: "sans-serif" }}>
       <h2>Conversation</h2>
 
-      {(!pid || !agent) && (
+      {(!pid || !agent || !stimulus) && (
         <div
           style={{
             marginBottom: 12,
@@ -126,7 +134,38 @@ export default function ChatPage() {
             fontSize: 14
           }}
         >
-          Warning: missing URL parameters. pid="{pid || "(vazio)"}", agent="{agent || "(vazio)"}"
+          Warning: missing URL parameters. pid="{pid || "(empty)"}", agent="{agent || "(empty)"}", stimulus="{stimulus || "(empty)"}"
+        </div>
+      )}
+
+      {reminder && (
+        <div
+          style={{
+            marginBottom: 16,
+            padding: 14,
+            borderRadius: 10,
+            border: "1px solid #d7defa",
+            background: "#eef2ff",
+            fontSize: 14,
+            lineHeight: 1.45
+          }}
+        >
+          <p style={{ margin: "0 0 8px 0" }}>
+            <b>{reminder.task_title}</b> {reminder.task}
+          </p>
+
+          <p style={{ margin: "0 0 8px 0" }}>
+            <b>{reminder.reminder_title}</b> {reminder.reminder}
+          </p>
+
+          <ul style={{ margin: "0 0 8px 20px", padding: 0 }}>
+            {reminder.bullets.map((b: string, i: number) => (
+              <li key={i}>{b}</li>
+            ))}
+          </ul>
+
+          <p style={{ margin: "0 0 8px 0" }}>{reminder.reasoning}</p>
+          <p style={{ margin: 0 }}>{reminder.length_rule}</p>
         </div>
       )}
 

@@ -1,0 +1,28 @@
+{
+  "Promoção": {
+    "task_title": "Your task:",
+    "task": "Convince the assistant that choosing DELIGHT is a good decision.",
+    "reminder_title": "Reminder:",
+    "reminder": "DELIGHT is presented as a simple and balanced yogurt that helps you feel better every day.",
+    "bullets": [
+      "Improve your digestion: with probiotics that support digestive balance.",
+      "Boost your energy: a light option that helps you maintain steady energy throughout the day.",
+      "Support your weight balance: a lower-fat option that fits into a healthy lifestyle."
+    ],
+    "reasoning": "You may draw on different types of reasoning, such as what people commonly do, what others recommend, or what you personally consider important.",
+    "length_rule": "Keep your answers short (2–3 sentences)."
+  },
+  "Prevenção": {
+    "task_title": "Your task:",
+    "task": "Convince the assistant that choosing DELIGHT is a good decision.",
+    "reminder_title": "Reminder:",
+    "reminder": "DELIGHT is presented as a simple and balanced yogurt that helps you take care of yourself day by day.",
+    "bullets": [
+      "Avoid digestive discomfort: helps prevent uneasiness and keeps your body in balance.",
+      "Avoid energy drops: helps prevent fatigue and fluctuations throughout the day.",
+      "Helps you avoid weight gain: lets you enjoy it without excess, while feeling good about yourself."
+    ],
+    "reasoning": "You may draw on different types of reasoning, such as what people commonly do, what others recommend, or what you personally consider important.",
+    "length_rule": "Keep your answers short (2–3 sentences)."
+  }
+}
